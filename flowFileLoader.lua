@@ -31,7 +31,13 @@ local function flowFileLoader_load(fileName, scale)
 end
 
 local function myLoader(fileName, scale)
-    return image.load(fileName)
+    local flowFile = image.load(fileName)
+
+    flowFile[1] = (flowFile[1] / 255 * 30 - 15) * scale
+    flowFile[2] = (flowFile[2] / 255 * 30 - 15) * scale
+    return flowFile
+
+    
 
 --     local flowFile = image.load(fileName)
 --     local W, H = flowFile:size()[3], flowFile:size()[2]

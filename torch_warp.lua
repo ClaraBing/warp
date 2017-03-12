@@ -14,13 +14,15 @@ require 'image'
 local params = {
     flow_file = 'examples/000000.png',
     source_image = 'examples/000000.JPEG',
-    output_image = 'examples/000000_warped.JPEG',
-    scale = 1
+    output_image = 'examples/000000_warped_half.JPEG',
+    scale = 0.5
 }
 
 local function main(params)
 --  local flow = flowFile.load(params['flow_file'], params['scale'])
   local flow = image.load(params['flow_file'])
+  flow[1] = flow[1] / 255 * 30 - 15
+  flow[2] = flow[2] / 255 * 30 - 15
   local imageWarped = warpImage(image.load(params['source_image'], 3), flow)
   image.save(params['output_image'], imageWarped)
 end
